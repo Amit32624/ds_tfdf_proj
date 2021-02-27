@@ -1,38 +1,32 @@
 from glob import glob
 from collections import Counter
+from numpy.core.numeric import normalize_axis_tuple
+import pandas as pd
+import numpy as np
 import re
 import os
 
 folderpaths = 'C://Users//91720//Documents//ds_tfdf_proj//Dataset-P1'
 counter = Counter()
-
-# filepaths = glob(os.path.join(folderpaths,'*.txt'))
-# for file in filepaths:
-#     with open(file) as f:
-#         words = re.findall(r'\w+', f.read().lower())
-#         # if len(words) >=4 and len(words) <= 20:
-#         counter = counter + Counter(words)
-#         items = {k:v for (k,v) in counter.items() if len(k) >=4 and len(k) <= 20}
-        
-# print(counter)
-# print(items)
-# print("Number of words: ",len(items))
-
-
+idf =[]
 filepaths = glob(os.path.join(folderpaths,'*.txt'))
 for file in filepaths:
     with open(file) as f:
-        def termFrequency(term, f):
-                normalizeTermFreq = f.lower().split()
-                term_in_document = normalizeTermFreq.count(term.lower()) 
-                len_of_document = float(len(normalizeTermFreq ))
-                normalized_tf = term_in_document / len_of_document
-                return normalized_tf 
-    
+        words = re.findall(r'\w+', f.read().lower()) #Returns a match where the string contains any word character
+        print(words)
+        counter = counter + Counter(words) 
+        print(counter) 
+        items = {k:v for (k,v) in counter.items() if len(k) >=4 and len(k) <= 20}
+        for ele in counter:
+            idf.append(counter[ele]/len(counter))
+            print(idf) # Gives the term frequency TF
 
 # print(normalized_tf)
+
 # print(counter)
-# print(items)
+# print("Popular_words",counter.most_common(200))
+# # print(items)
 # print("Number of words: ",len(items))
+# print("**********************")
 
 
